@@ -129,3 +129,12 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # -------------------------------------------------------------------
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# -------------------------------------------------------------------
+# Redirecciones después de inicio/cierre de sesión
+# -------------------------------------------------------------------
+
+LOGIN_REDIRECT_URL = '/productos/'
+LOGOUT_REDIRECT_URL = '/cuentas/login/'
