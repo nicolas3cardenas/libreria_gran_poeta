@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">
+        {% if object %}
+          ✏️ Editar Producto
+        {% else %}
+          ➕ Nuevo Producto
+        {% endif %}
+      </h4>
+    </div>
+
+    <div class="card-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <label class="form-label">Nombre del producto</label>
+            {{ form.nombre }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Tipo</label>
+            {{ form.tipo }}
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label class="form-label">Editorial</label>
+            {{ form.editorial }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Autor</label>
+            {{ form.autor }}
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label class="form-label">ISBN</label>
+            {{ form.isbn }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Año de publicación</label>
+            {{ form.anio_publicacion }}
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label class="form-label">Bodega</label>
+            {{ form.bodega }}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Stock</label>
+            {{ form.stock }}
+          </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between">
+          <a href="{% url 'productos:list' %}" class="btn btn-secondary">
+            ↩ Volver
+          </a>
+          <button type="submit" class="btn btn-success">
+            💾 Guardar Producto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

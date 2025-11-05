@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow-sm mt-4">
+  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">📦 Registrar Movimiento de Inventario</h4>
+    <a href="{% url 'productos:list' %}" class="btn btn-light btn-sm">↩ Volver</a>
+  </div>
+
+  <div class="card-body">
+    <form method="post" class="needs-validation" novalidate>
+      {% csrf_token %}
+
+      <!-- Producto -->
+      <div class="mb-3">
+        <label for="producto" class="form-label">Producto:</label>
+        <select name="producto" id="producto" class="form-select" required>
+          <option value="">-- Selecciona un producto --</option>
+          {% for p in productos %}
+            <option value="{{ p.id }}">{{ p.nombre }} (Stock actual: {{ p.stock }})</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Tipo de movimiento -->
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo de Movimiento:</label>
+        <select name="tipo" id="tipo" class="form-select" required>
+          <option value="">-- Selecciona tipo --</option>
+          <option value="ENTRADA">Entrada</option>
+          <option value="SALIDA">Salida</option>
+          <option value="TRASLADO">Traslado</option>
+        </select>
+      </div>
+
+      <!-- Bodega origen -->
+      <div class="mb-3">
+        <label for="bodega_origen" class="form-label">Bodega Origen (opcional):</label>
+        <select name="bodega_origen" id="bodega_origen" class="form-select">
+          <option value="">-- Ninguna --</option>
+          {% for b in bodegas %}
+            <option value="{{ b.id }}">{{ b.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Bodega destino -->
+      <div class="mb-3">
+        <label for="bodega_destino" class="form-label">Bodega Destino (opcional):</label>
+        <select name="bodega_destino" id="bodega_destino" class="form-select">
+          <option value="">-- Ninguna --</option>
+          {% for b in bodegas %}
+            <option value="{{ b.id }}">{{ b.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Cantidad -->
+      <div class="mb-3">
+        <label for="cantidad" class="form-label">Cantidad:</label>
+        <input type="number" name="cantidad" id="cantidad" class="form-control" min="1" required>
+      </div>
+
+      <!-- Comentario -->
+      <div class="mb-3">
+        <label for="comentario" class="form-label">Comentario:</label>
+        <textarea name="comentario" id="comentario" class="form-control" rows="3" placeholder="Opcional..."></textarea>
+      </div>
+
+      <!-- Botones -->
+      <div class="text-end">
+        <button type="submit" class="btn btn-success me-2">💾 Guardar Movimiento</button>
+        <a href="{% url 'productos:list' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
